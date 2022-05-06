@@ -15,6 +15,11 @@
 		0469ABCA28240FF70087D28F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469ABC928240FF70087D28F /* Assets.xcassets */; };
 		0469ABCD28240FF70087D28F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469ABCC28240FF70087D28F /* Preview Assets.xcassets */; };
 		0469ABDB282411B60087D28F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469ABDA282411B60087D28F /* DashboardView.swift */; };
+		04EA4C3A28257ECC008F2FE6 /* ExcersizeRecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA4C3928257ECC008F2FE6 /* ExcersizeRecordList.swift */; };
+		04EA4C3C28257FE2008F2FE6 /* ExcersizeTypeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA4C3B28257FE2008F2FE6 /* ExcersizeTypeTab.swift */; };
+		04EA4C3E2825817E008F2FE6 /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA4C3D2825817E008F2FE6 /* PlusButton.swift */; };
+		04EA4C42282587EB008F2FE6 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA4C41282587EB008F2FE6 /* RecordsView.swift */; };
+		04EA4C4428258D72008F2FE6 /* DatePickerBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA4C4328258D72008F2FE6 /* DatePickerBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		0469ABCC28240FF70087D28F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0469ABD328240FF70087D28F /* PushUps_Count.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushUps_Count.entitlements; sourceTree = "<group>"; };
 		0469ABDA282411B60087D28F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		04EA4C3928257ECC008F2FE6 /* ExcersizeRecordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcersizeRecordList.swift; sourceTree = "<group>"; };
+		04EA4C3B28257FE2008F2FE6 /* ExcersizeTypeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcersizeTypeTab.swift; sourceTree = "<group>"; };
+		04EA4C3D2825817E008F2FE6 /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
+		04EA4C41282587EB008F2FE6 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
+		04EA4C4328258D72008F2FE6 /* DatePickerBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +103,11 @@
 			isa = PBXGroup;
 			children = (
 				0469ABDA282411B60087D28F /* DashboardView.swift */,
+				04EA4C3928257ECC008F2FE6 /* ExcersizeRecordList.swift */,
+				04EA4C3B28257FE2008F2FE6 /* ExcersizeTypeTab.swift */,
+				04EA4C3D2825817E008F2FE6 /* PlusButton.swift */,
+				04EA4C41282587EB008F2FE6 /* RecordsView.swift */,
+				04EA4C4328258D72008F2FE6 /* DatePickerBar.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -171,8 +186,13 @@
 				043DA35A282546EC00CFBDD5 /* Persistence.swift in Sources */,
 				04147E9D28256050004B3496 /* ExcersizeTypeUtil.swift in Sources */,
 				0469ABDB282411B60087D28F /* DashboardView.swift in Sources */,
+				04EA4C3C28257FE2008F2FE6 /* ExcersizeTypeTab.swift in Sources */,
+				04EA4C3A28257ECC008F2FE6 /* ExcersizeRecordList.swift in Sources */,
 				0469ABC628240FF60087D28F /* PushUps_CountApp.swift in Sources */,
+				04EA4C4428258D72008F2FE6 /* DatePickerBar.swift in Sources */,
+				04EA4C42282587EB008F2FE6 /* RecordsView.swift in Sources */,
 				043DA3582825466C00CFBDD5 /* ExcersizeRecord.xcdatamodeld in Sources */,
+				04EA4C3E2825817E008F2FE6 /* PlusButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

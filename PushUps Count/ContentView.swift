@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-
     
     var body: some View {
         NavigationView {
@@ -25,6 +24,12 @@ struct ContentView: View {
                 } label: {
                     Text("Analyse")
                 }
+                
+                NavigationLink {
+                    RecordsView(selectedDate: Date())
+                } label: {
+                    Text("Records")
+                }
             }
             VStack {
 //                Text("Go for the training")
@@ -35,6 +40,7 @@ struct ContentView: View {
                     .frame(width: 400)
             }
         }
+
     }
 
 }

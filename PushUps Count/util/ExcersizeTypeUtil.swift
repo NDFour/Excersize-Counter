@@ -12,9 +12,9 @@ class ExcersizeTypeUtil {
     
     init() {
         self.excersizes = [Excersize(code: "100", name: "Push-ups", image: "pushups", plusButton: [20, 30, 40, 50]),
-                           Excersize(code: "101", name: "Sit-ups", image: "situps", plusButton: [100, 200, 300, 400, 500]),
+                           Excersize(code: "101", name: "Sit-ups", image: "situps", plusButton: [50, 100, 150, 200, 300]),
                            Excersize(code: "102", name: "Skipping-rpoe", image: "skipping-rope", plusButton: [100, 300, 500, 700, 1000]),
-                           Excersize(code: "103", name: "Squats", image: "squats", plusButton: [50, 100, 150, 200])]
+                           Excersize(code: "103", name: "Squats", image: "squats", plusButton: [100, 300, 500, 700])]
     }
     
     // MARK: Find img by excersize type code.
