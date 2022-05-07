@@ -15,9 +15,11 @@ struct ExcersizeRecordList: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
     private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
     
-    
     @State
     var excersizeTypeUtil: ExcersizeTypeUtil
+    
+    @State
+    var formatClosure: ((_ dateDesc: String) -> String)
     
     var body: some View {
         VStack {
@@ -32,7 +34,7 @@ struct ExcersizeRecordList: View {
                                 .frame(width: 25, height: 25)
                         }
                         
-                        Text(formatTimestamp(from: excersize.timestamp?.description ?? "nil"))
+                        Text(formatClosure(excersize.timestamp?.description ?? "nil"))
                         Spacer()
                         Text("+ \(excersize.count)")
                         Button(action: {
@@ -48,15 +50,6 @@ struct ExcersizeRecordList: View {
                 }
             }
         }
-    }
-    
-    
-    // MARK: Format timestamp string
-    private func formatTimestamp(from originStr: String) -> String {
-        let firstIdx = originStr.firstIndex(of: " ") ?? originStr.startIndex
-        let secondIdx = originStr.lastIndex(of: ":") ?? originStr.endIndex
-        let rel = originStr[firstIdx ..< secondIdx]
-        return String(rel)
     }
     
     // MARK: Save CoreData
@@ -75,6 +68,8 @@ struct ExcersizeRecordList: View {
 
 struct ExcersizeRecordList_Previews: PreviewProvider {
     static var previews: some View {
-        ExcersizeRecordList(excersizeTypeUtil: ExcersizeTypeUtil())
+        ExcersizeRecordList(excersizeTypeUtil: ExcersizeTypeUtil()) {dateDesc in
+            return "Preview"
+        }
     }
 }

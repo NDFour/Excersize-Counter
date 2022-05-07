@@ -102,14 +102,22 @@
 		0469ABD9282411A90087D28F /* view */ = {
 			isa = PBXGroup;
 			children = (
+				046ADEAF2826B99200F6AE0E /* sub */,
 				0469ABDA282411B60087D28F /* DashboardView.swift */,
+				04EA4C41282587EB008F2FE6 /* RecordsView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		046ADEAF2826B99200F6AE0E /* sub */ = {
+			isa = PBXGroup;
+			children = (
 				04EA4C3928257ECC008F2FE6 /* ExcersizeRecordList.swift */,
 				04EA4C3B28257FE2008F2FE6 /* ExcersizeTypeTab.swift */,
 				04EA4C3D2825817E008F2FE6 /* PlusButton.swift */,
-				04EA4C41282587EB008F2FE6 /* RecordsView.swift */,
 				04EA4C4328258D72008F2FE6 /* DatePickerBar.swift */,
 			);
-			path = view;
+			path = sub;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

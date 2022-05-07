@@ -39,7 +39,7 @@ struct DashboardView: View {
                     .padding()
             }
             // List here
-            ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil)
+            ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
         }
     }
     
@@ -52,14 +52,22 @@ struct DashboardView: View {
         return total
     }
     
-    // MARK: Format data
-//    private func getFormatedDate() -> String {
-//        let originStr = Date().description
-//        let firstIdx = originStr.firstIndex(of: "-") ?? originStr.startIndex
-//        let secondIdx = originStr.firstIndex(of: " ") ?? originStr.endIndex
-//        let rel = originStr[originStr.index(after: firstIdx) ..< secondIdx]
-//        return String(rel)
-//    }
+    // MARK: Excersize Records date formater
+    private func formatTimestamp(from dateDesc: String) -> String {
+        let firstIdx = dateDesc.firstIndex(of: " ") ?? dateDesc.startIndex
+        let secondIdx = dateDesc.lastIndex(of: ":") ?? dateDesc.endIndex
+        let rel = dateDesc[firstIdx ..< secondIdx]
+        return String(rel)
+    }
+    
+    // MARK: Get today's date
+    private func getTodayDate() -> String {
+        let dateDesc = Date().description
+        let firstIdx = dateDesc.startIndex
+        let secondIdx = dateDesc.lastIndex(of: " ") ?? dateDesc.endIndex
+        let rel = dateDesc[firstIdx ..< secondIdx]
+        return String(rel)
+    }
     
     // MARK: Save CoreData
     private func saveCoreData() {

@@ -16,7 +16,7 @@ struct ContentView: View {
                 NavigationLink {
                     DashboardView()
                 } label: {
-                    Text("Dashboard")
+                    Text("Today")
                 }
                 
                 NavigationLink {

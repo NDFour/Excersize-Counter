@@ -17,16 +17,25 @@ struct RecordsView: View {
     var body: some View {
         HStack {
             // MARK: Date range list
-            DatePickerBar(exDays: [Date]())
-                .padding()
+//            DatePickerBar(exDays: [Date]())
+//                .padding()
             // MARK: Date selector
-//            DatePicker("Date selector", selection: $selectedDate, in: ...Date(),  displayedComponents: .date)
-//                .datePickerStyle(.graphical)
+//            DatePicker("Date", selection: $selectedDate, in: ...Date(),  displayedComponents: .date)
+//                .datePickerStyle(.stepperField)
             
             // MARK: Total records list
-            ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil)
+            ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
         }
     }
+    
+    // MARK: Excersize Records date formater
+    private func formatTimestamp(from dateDesc: String) -> String {
+        let firstIdx = dateDesc.startIndex
+        let secondIdx = dateDesc.lastIndex(of: ":") ?? dateDesc.endIndex
+        let rel = dateDesc[firstIdx ..< secondIdx]
+        return String(rel)
+    }
+    
 }
 
 struct RecordsView_Previews: PreviewProvider {

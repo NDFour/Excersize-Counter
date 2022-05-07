@@ -52,7 +52,6 @@ struct ExcersizeTypeTab: View {
     }
     
     
-    
     // MARK: Calculate count of some type of excersize
     private func calcCoundOfType(type: String) -> Int {
         var total = 0
