@@ -4,12 +4,12 @@
 
 ### Today
 
-![today](/Users/mac/Documents/Xcode-projects/PushUps Count/images/today.png)
+![today](https://github.com/NDFour/Excersize-Counter/blob/fea-viewmodel/images/today.png'
 
 ### Analyse
 
-![analyse](/Users/mac/Documents/Xcode-projects/PushUps Count/images/analyse.png)
+![analyse](https://github.com/NDFour/Excersize-Counter/blob/fea-viewmodel/images/analyse.png)
 
 ### Records
 
-![records](/Users/mac/Documents/Xcode-projects/PushUps Count/images/records.png)
+![records](https://github.com/NDFour/Excersize-Counter/blob/fea-viewmodel/images/records.png)
