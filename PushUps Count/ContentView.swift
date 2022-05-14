@@ -12,24 +12,30 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                NavigationLink {
-                    DashboardView()
-                } label: {
-                    Text("Today")
+            VStack {
+                List {
+                    NavigationLink {
+                        DashboardView()
+                    } label: {
+                        Text("Today")
+                    }
+                    
+                    NavigationLink {
+                        Text("Page Analyse")
+                    } label: {
+                        Text("Analyse")
+                    }
+                    
+                    NavigationLink {
+                        RecordsView(selectedDate: Date())
+                    } label: {
+                        Text("Records")
+                    }
+                    
                 }
-                
-                NavigationLink {
-                    Text("Page Analyse")
-                } label: {
-                    Text("Analyse")
-                }
-                
-                NavigationLink {
-                    RecordsView(selectedDate: Date())
-                } label: {
-                    Text("Records")
-                }
+                Text(getTodayDate())
+                    .font(.subheadline)
+                    .padding()
             }
             VStack {
 //                Text("Go for the training")
@@ -41,6 +47,22 @@ struct ContentView: View {
             }
         }
 
+    }
+    
+    
+    // MARK: Get today's date
+    private func getTodayDate() -> String {
+        let d1 = Date()
+        // let timeZone = TimeZone.current
+        let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone.current
+        let interval: Int = timeZone.secondsFromGMT(for: d1)
+        let currentDate = d1.addingTimeInterval(Double(interval))
+        
+        let dateDesc = currentDate.description
+        let firstIdx = dateDesc.startIndex
+        let secondIdx = dateDesc.lastIndex(of: " ") ?? dateDesc.endIndex
+        let rel = dateDesc[firstIdx ..< secondIdx]
+        return String(rel)
     }
 
 }

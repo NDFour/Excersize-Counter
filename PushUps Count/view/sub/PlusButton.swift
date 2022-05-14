@@ -25,9 +25,10 @@ struct PlusButton: View {
             ForEach(excersizeTypeUtil.excersizes[excersizeSelected].plusButton, id: \.self) { plus in
                 Button("+ \(plus)") {
                     print("+ \(plus)")
+                    
                     let newExcersize = ExcersizeCD(context: viewContext)
                     newExcersize.count = Int16(plus)
-                    newExcersize.timestamp = Date()
+                    newExcersize.timestamp = getCurrentTimezoneDate()
                     newExcersize.type = excersizeTypeUtil.excersizes[excersizeSelected].code
                     saveCoreData()
                 }
@@ -45,6 +46,16 @@ struct PlusButton: View {
             let error = error as NSError
             fatalError("Unresolved error: \(error)")
         }
+    }
+    
+    // MARK: Get current timezone date
+    private func getCurrentTimezoneDate() -> Date {
+        let d1 = Date()
+        // let timeZone = TimeZone.current
+        let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone.current
+        let interval: Int = timeZone.secondsFromGMT(for: d1)
+        let currentDate = d1.addingTimeInterval(Double(interval))
+        return currentDate
     }
     
 }

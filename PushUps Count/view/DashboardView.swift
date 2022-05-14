@@ -12,6 +12,7 @@ struct DashboardView: View {
     // MARK: CoreData
     @Environment(\.managedObjectContext)
     private var viewContext
+    // , predicate: NSPredicate(format: "count > %@", 200)
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
     private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
     
