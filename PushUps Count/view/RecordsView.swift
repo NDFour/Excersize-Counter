@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct RecordsView: View {
-    
-    // MARK: CoreData
-//    @Environment(\.managedObjectContext)
-//    private var viewContext
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
-//    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
-    
+
     @StateObject
     var recordsVM: RecordsViewModel = .init()
     
@@ -22,6 +16,9 @@ struct RecordsView: View {
     
     @State
     var selectedDate: Date
+    
+    @State
+    var showDelAlert = false
     
     var body: some View {
         HStack {
@@ -39,10 +36,29 @@ struct RecordsView: View {
                         .padding(.horizontal)
                     Text("\(recordsVM.totalRecords.count) records")
                     Spacer()
+                    
+                    // Delete all confirm
+                    if showDelAlert {
+                        Button("Confirm") {
+                            withAnimation {
+                                showDelAlert.toggle()
+                                print("confirm delete all !")
+                                recordsVM.deleteall()
+                            }
+                        }
+                        .foregroundColor(.red)
+                        
+                        Button("Cancel") {
+                            withAnimation {
+                                showDelAlert.toggle()
+                            }
+                        }
+                    }
+                    
                     Button("Detele all") {
                         print("delete all")
                         withAnimation {
-                            deleteAll()
+                            showDelAlert.toggle()
                         }
                     }
                     .padding(.horizontal)
@@ -52,9 +68,6 @@ struct RecordsView: View {
                 RecordsViewRecordList(recordsVM: recordsVM, excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
             }
         }
-        .onAppear(perform: {
-            recordsVM.getRecordsByDay()
-        })
     }
     
     // MARK: Excersize Records date formater
@@ -63,11 +76,6 @@ struct RecordsView: View {
         let secondIdx = dateDesc.lastIndex(of: ":") ?? dateDesc.endIndex
         let rel = dateDesc[firstIdx ..< secondIdx]
         return String(rel)
-    }
-    
-    // MARK: Deleteall Records
-    private func deleteAll() {
-        recordsVM.deleteall()
     }
     
 }

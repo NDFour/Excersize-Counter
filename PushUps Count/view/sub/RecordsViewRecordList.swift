@@ -11,24 +11,30 @@ struct RecordsViewRecordList: View {
     
     @StateObject
     var recordsVM: RecordsViewModel
-    
-    // @State
+
     var excersizeTypeUtil: ExcersizeTypeUtil
-    
-    // @State
     var formatClosure: ((_ dateDesc: String) -> String)
+    
     @State
     var nowRecordDate: String = DateFormatUtil.getDateString(from: Date())
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(0 ..< recordsVM.totalRecords.count, id: \.self) { idx in
-                    let excersize = recordsVM.totalRecords[idx]
-                    if excersize.timestamp!.description.hasPrefix(nowRecordDate) {
-                        Divider()
-                        // nowRecordDate = DateFormatUtil.getDateString(from: excersize.timestamp!)
-                    }
+        List {
+            // records of many days
+            ForEach(0 ..< recordsVM.recordsByDay.count, id: \.self) { outIdx in
+                let recordsOneDay = recordsVM.recordsByDay[outIdx]
+                Divider()
+                HStack {
+                    Text("\(recordsOneDay.date)")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                    Text("\(recordsOneDay.records.count) items")
+                }
+                .padding()
+                // records of one day
+                ForEach(0 ..< recordsOneDay.records.count, id: \.self) { idx in
+                    let excersize = recordsOneDay.records[idx]
                     HStack {
                         Text("\(idx + 1)")
                             .frame(width: 25)
@@ -42,7 +48,9 @@ struct RecordsViewRecordList: View {
                         Spacer()
                         Text("+ \(excersize.count)")
                         Button(action: {
-                            recordsVM.delete(at: idx)
+                            withAnimation {
+                                recordsVM.delete(of: excersize)
+                            }
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(.red)
@@ -51,15 +59,16 @@ struct RecordsViewRecordList: View {
                     }
                 }
             }
+            
         }
     }
     
 }
 
-struct ExcersizeRecordList_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordsViewRecordList(recordsVM: RecordsViewModel(), excersizeTypeUtil: ExcersizeTypeUtil()) {dateDesc in
-            return "Preview"
-        }
-    }
-}
+//struct ExcersizeRecordList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordsViewRecordList(recordsVM: RecordsViewModel(), excersizeTypeUtil: ExcersizeTypeUtil()) {dateDesc in
+//            return "Preview"
+//        }
+//    }
+//}

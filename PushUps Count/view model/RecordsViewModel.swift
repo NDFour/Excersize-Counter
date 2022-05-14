@@ -26,7 +26,6 @@ class RecordsViewModel: ObservableObject {
     init() {
         print("RecordsViewModel init...")
         getAllRecords()
-        getRecordsByDay()
     }
     
     func getAllRecords() {
@@ -41,12 +40,15 @@ class RecordsViewModel: ObservableObject {
         } catch {
             fatalError("Fatal error in getAllRecords: \(error)")
         }
+        // grouped by date
+        getRecordsByDay()
     }
     
     /**
      Get all Recored, grouped by date
      */
     func getRecordsByDay() {
+        print("RecordsViewModel getRecordsByDay...")
         // get date array
         var dateArr = [String]()
         var recMap = [String: [ExcersizeCD]]()
@@ -66,15 +68,31 @@ class RecordsViewModel: ObservableObject {
         }
         
         recordsByDay = []
-        for kk in recMap.keys {
+        for kk in dateArr.reversed() {
             let tmp = RecordsOfDay(date: kk, records: recMap[kk] ?? [])
             recordsByDay.append(tmp)
         }
+        
     }
     
+    /**
+     delete by idx
+     */
     func delete(at idx: Int) {
         // delete
         controller.container.viewContext.delete(totalRecords[idx])
+        // save
+        controller.save()
+        // get
+        getAllRecords()
+    }
+    
+    /**
+     delete by obj
+     */
+    func delete(of obj: ExcersizeCD) {
+        // delete
+        controller.container.viewContext.delete(obj)
         // save
         controller.save()
         // get
