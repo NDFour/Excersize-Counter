@@ -4,7 +4,7 @@
 
 ### Today
 
-![today](https://github.com/NDFour/Excersize-Counter/blob/fea-viewmodel/images/today.png'
+![today](https://github.com/NDFour/Excersize-Counter/blob/fea-viewmodel/images/today.png)
 
 ### Analyse
 
