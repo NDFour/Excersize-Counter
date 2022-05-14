@@ -7,27 +7,31 @@
 
 import SwiftUI
 
-struct ExcersizeRecordList: View {
+struct RecordsViewRecordList: View {
     
-    // MARK: CoreData
-    @Environment(\.managedObjectContext)
-    private var viewContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
-    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+    @StateObject
+    var recordsVM: RecordsViewModel
     
-    @State
+    // @State
     var excersizeTypeUtil: ExcersizeTypeUtil
     
-    @State
+    // @State
     var formatClosure: ((_ dateDesc: String) -> String)
+    @State
+    var nowRecordDate: String = DateFormatUtil.getDateString(from: Date())
     
     var body: some View {
         VStack {
             List {
-                ForEach(0 ..< excersizeRecordsCD.count, id: \.self) { idx in
-                    let excersize = excersizeRecordsCD[idx]
+                ForEach(0 ..< recordsVM.totalRecords.count, id: \.self) { idx in
+                    let excersize = recordsVM.totalRecords[idx]
+                    if excersize.timestamp!.description.hasPrefix(nowRecordDate) {
+                        Divider()
+                        // nowRecordDate = DateFormatUtil.getDateString(from: excersize.timestamp!)
+                    }
                     HStack {
                         Text("\(idx + 1)")
+                            .frame(width: 25)
                         if let img = excersizeTypeUtil.findImgByTypeCode(typeCode: excersize.type ?? "404") {
                             Image("\(img)")
                                 .resizable()
@@ -38,9 +42,7 @@ struct ExcersizeRecordList: View {
                         Spacer()
                         Text("+ \(excersize.count)")
                         Button(action: {
-                            print("delete ...")
-                            viewContext.delete(excersize)
-                            saveCoreData()
+                            recordsVM.delete(at: idx)
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(.red)
@@ -52,23 +54,11 @@ struct ExcersizeRecordList: View {
         }
     }
     
-    // MARK: Save CoreData
-    private func saveCoreData() {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-        } catch {
-            let error = error as NSError
-            fatalError("Unresolved error: \(error)")
-        }
-    }
-    
 }
 
 struct ExcersizeRecordList_Previews: PreviewProvider {
     static var previews: some View {
-        ExcersizeRecordList(excersizeTypeUtil: ExcersizeTypeUtil()) {dateDesc in
+        RecordsViewRecordList(recordsVM: RecordsViewModel(), excersizeTypeUtil: ExcersizeTypeUtil()) {dateDesc in
             return "Preview"
         }
     }

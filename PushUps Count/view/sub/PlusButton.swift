@@ -9,11 +9,14 @@ import SwiftUI
 
 struct PlusButton: View {
     
-    // MARK: CoreData
-    @Environment(\.managedObjectContext)
-    private var viewContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
-    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+//    // MARK: CoreData
+//    @Environment(\.managedObjectContext)
+//    private var viewContext
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
+//    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+    
+    @StateObject
+    var dashboardVM: DashboardViewModel
     
     @State
     var excersizeTypeUtil: ExcersizeTypeUtil
@@ -26,25 +29,10 @@ struct PlusButton: View {
                 Button("+ \(plus)") {
                     print("+ \(plus)")
                     
-                    let newExcersize = ExcersizeCD(context: viewContext)
-                    newExcersize.count = Int16(plus)
-                    newExcersize.timestamp = getCurrentTimezoneDate()
-                    newExcersize.type = excersizeTypeUtil.excersizes[excersizeSelected].code
-                    saveCoreData()
+                    dashboardVM.add(count: plus, timestamp: getCurrentTimezoneDate(), type: excersizeTypeUtil.excersizes[excersizeSelected].code)
+                    
                 }
             }
-        }
-    }
-    
-    // MARK: Save CoreData
-    private func saveCoreData() {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-        } catch {
-            let error = error as NSError
-            fatalError("Unresolved error: \(error)")
         }
     }
     
@@ -62,6 +50,6 @@ struct PlusButton: View {
 
 struct PlusButton_Previews: PreviewProvider {
     static var previews: some View {
-        PlusButton(excersizeTypeUtil: ExcersizeTypeUtil(), excersizeSelected: .constant(0))
+        PlusButton(dashboardVM: DashboardViewModel(), excersizeTypeUtil: ExcersizeTypeUtil(), excersizeSelected: .constant(0))
     }
 }

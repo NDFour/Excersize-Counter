@@ -19,13 +19,16 @@ class ExcersizeTypeUtil {
     }
     
     // MARK: Find img by excersize type code.
-    func findImgByTypeCode(typeCode: String) -> String {
+    func findImgByTypeCode(typeCode: String) -> String? {
         var img: String = ""
         for idx in 0..<self.excersizes.count {
             if self.excersizes[idx].code == typeCode {
                 img = self.excersizes[idx].image
                 break
             }
+        }
+        guard img.count > 0 else {
+            return nil
         }
         return img
     }

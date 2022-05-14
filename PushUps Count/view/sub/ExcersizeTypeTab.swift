@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ExcersizeTypeTab: View {
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
-    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
+//    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+    
+    @StateObject
+    var dashboardVM: DashboardViewModel
     
     @State
     var excersizeTypeUtil: ExcersizeTypeUtil
@@ -39,7 +42,7 @@ struct ExcersizeTypeTab: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text("\(calcCoundOfType(type: excersizeTypeUtil.excersizes[idx].code))")
+                            Text("\(dashboardVM.calcCountOfType(type: excersizeTypeUtil.excersizes[idx].code))")
                                 .font(.title3)
                                 .bold()
                             Spacer()
@@ -51,22 +54,10 @@ struct ExcersizeTypeTab: View {
         }
     }
     
-    
-    // MARK: Calculate count of some type of excersize
-    private func calcCoundOfType(type: String) -> Int {
-        var total = 0
-        for cc in excersizeRecordsCD {
-            if cc.type == type {
-                total += Int(cc.count)
-            }
-        }
-        return total
-    }
-    
 }
 
 struct ExcersizeTypeTab_Previews: PreviewProvider {
     static var previews: some View {
-        ExcersizeTypeTab(excersizeTypeUtil: ExcersizeTypeUtil(), excersizeSelected: .constant(0))
+        ExcersizeTypeTab(dashboardVM: DashboardViewModel(), excersizeTypeUtil: ExcersizeTypeUtil(), excersizeSelected: .constant(0))
     }
 }

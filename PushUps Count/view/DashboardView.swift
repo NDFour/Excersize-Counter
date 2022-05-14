@@ -9,30 +9,29 @@ import SwiftUI
 
 struct DashboardView: View {
     
-    // MARK: CoreData
-    @Environment(\.managedObjectContext)
-    private var viewContext
-    // , predicate: NSPredicate(format: "count > %@", 200)
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
     private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
     
-    let excersizeTypeUtil = ExcersizeTypeUtil()
+    @StateObject
+    var dashboardVM: DashboardViewModel = .init()
+    
+    let excersizeTypeUtil: ExcersizeTypeUtil
     @State
     var excersizeSelected: Int = 0
     
     var body: some View {
         VStack {
             // MARK: Total count
-            Text("Today: \(calcTotalCount(type: "pushups"))")
+            Text("Today: \(dashboardVM.calcTotalCount(type: "pushups"))")
                 .font(.largeTitle)
                 .bold()
                 .padding()
             // MARK: type tab
-            ExcersizeTypeTab(excersizeTypeUtil: excersizeTypeUtil, excersizeSelected: $excersizeSelected)
+            ExcersizeTypeTab(dashboardVM: dashboardVM, excersizeTypeUtil: excersizeTypeUtil, excersizeSelected: $excersizeSelected)
             Divider()
                 .padding()
             // MARK: plus button
-            PlusButton(excersizeTypeUtil: excersizeTypeUtil, excersizeSelected: $excersizeSelected)
+            PlusButton(dashboardVM: dashboardVM, excersizeTypeUtil: excersizeTypeUtil, excersizeSelected: $excersizeSelected)
 
             // MARK: excersize record list
             if (excersizeRecordsCD.count == 0) {
@@ -40,45 +39,7 @@ struct DashboardView: View {
                     .padding()
             }
             // List here
-            ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
-        }
-    }
-    
-    // MARK: Calculate total count
-    private func calcTotalCount(type: String) -> Int {
-        var total = 0
-        for cc in excersizeRecordsCD {
-            total += Int(cc.count)
-        }
-        return total
-    }
-    
-    // MARK: Excersize Records date formater
-    private func formatTimestamp(from dateDesc: String) -> String {
-        let firstIdx = dateDesc.firstIndex(of: " ") ?? dateDesc.startIndex
-        let secondIdx = dateDesc.lastIndex(of: ":") ?? dateDesc.endIndex
-        let rel = dateDesc[firstIdx ..< secondIdx]
-        return String(rel)
-    }
-    
-    // MARK: Get today's date
-    private func getTodayDate() -> String {
-        let dateDesc = Date().description
-        let firstIdx = dateDesc.startIndex
-        let secondIdx = dateDesc.lastIndex(of: " ") ?? dateDesc.endIndex
-        let rel = dateDesc[firstIdx ..< secondIdx]
-        return String(rel)
-    }
-    
-    // MARK: Save CoreData
-    private func saveCoreData() {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-        } catch {
-            let error = error as NSError
-            fatalError("Unresolved error: \(error)")
+            DashboardViewRecordsList(dashboardVM: dashboardVM, excersizeTypeUtil: excersizeTypeUtil, formatClosure: DateFormatUtil.getHourMinute)
         }
     }
     
@@ -88,6 +49,6 @@ struct DashboardView: View {
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardView()
+        DashboardView(excersizeTypeUtil: ExcersizeTypeUtil())
     }
 }

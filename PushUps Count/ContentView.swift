@@ -10,24 +10,26 @@ import CoreData
 
 struct ContentView: View {
     
+    let excersizeTypeUtil: ExcersizeTypeUtil = .init()
+    
     var body: some View {
         NavigationView {
             VStack {
                 List {
                     NavigationLink {
-                        DashboardView()
+                        DashboardView(excersizeTypeUtil: excersizeTypeUtil)
                     } label: {
                         Text("Today")
                     }
                     
                     NavigationLink {
-                        Text("Page Analyse")
+                        AnalyseView(excersizeTypeUtil: excersizeTypeUtil)
                     } label: {
                         Text("Analyse")
                     }
                     
                     NavigationLink {
-                        RecordsView(selectedDate: Date())
+                        RecordsView(excersizeTypeUtil: excersizeTypeUtil, selectedDate: Date())
                     } label: {
                         Text("Records")
                     }

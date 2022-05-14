@@ -10,12 +10,15 @@ import SwiftUI
 struct RecordsView: View {
     
     // MARK: CoreData
-    @Environment(\.managedObjectContext)
-    private var viewContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
-    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
+//    @Environment(\.managedObjectContext)
+//    private var viewContext
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)])
+//    private var excersizeRecordsCD: FetchedResults<ExcersizeCD>
     
-    let excersizeTypeUtil = ExcersizeTypeUtil()
+    @StateObject
+    var recordsVM: RecordsViewModel = .init()
+    
+    let excersizeTypeUtil: ExcersizeTypeUtil
     
     @State
     var selectedDate: Date
@@ -31,6 +34,10 @@ struct RecordsView: View {
             
             VStack {
                 HStack {
+                    Text("Total:")
+                        .bold()
+                        .padding(.horizontal)
+                    Text("\(recordsVM.totalRecords.count) records")
                     Spacer()
                     Button("Detele all") {
                         print("delete all")
@@ -38,12 +45,16 @@ struct RecordsView: View {
                             deleteAll()
                         }
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
+                .padding(.vertical, 8)
                 // MARK: Total records list
-                ExcersizeRecordList(excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
+                RecordsViewRecordList(recordsVM: recordsVM, excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
             }
         }
+        .onAppear(perform: {
+            recordsVM.getRecordsByDay()
+        })
     }
     
     // MARK: Excersize Records date formater
@@ -56,28 +67,13 @@ struct RecordsView: View {
     
     // MARK: Deleteall Records
     private func deleteAll() {
-        for ex in self.excersizeRecordsCD {
-            viewContext.delete(ex)
-        }
-        saveCoreData()
-    }
-    
-    // MARK: Save CoreData
-    private func saveCoreData() {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-        } catch {
-            let error = error as NSError
-            fatalError("Unresolved error: \(error)")
-        }
+        recordsVM.deleteall()
     }
     
 }
 
 struct RecordsView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordsView(selectedDate: Date())
+        RecordsView(excersizeTypeUtil: ExcersizeTypeUtil(), selectedDate: Date())
     }
 }
