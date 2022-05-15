@@ -33,10 +33,11 @@ class DashboardViewModel: ObservableObject {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.system
 
-        print(calendar.startOfDay(for: Date()))
+        print(calendar.startOfDay(for: getDateByTimezoneShangHai()))
 
         let dateFrom = calendar.startOfDay(for: getDateByTimezoneShangHai()) // eg. 2016-10-10 00:00:00
-        let dateTmp = calendar.date(byAdding: .hour, value: -16, to: dateFrom)
+        var dateTmp = calendar.date(byAdding: .hour, value: -16, to: dateFrom)
+        dateTmp = calendar.date(byAdding: .day, value: 1, to: dateTmp!)
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateTmp!)
         print("Date from: \(dateTmp!.description) to: \(dateTo!.description)")
         let predicate = NSPredicate(format: "timestamp >= %@ AND timestamp < %@", dateTmp! as NSDate, dateTo! as NSDate)
