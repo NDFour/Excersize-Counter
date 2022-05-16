@@ -33,14 +33,18 @@ class DashboardViewModel: ObservableObject {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.system
 
-        print(calendar.startOfDay(for: getDateByTimezoneShangHai()))
+        //        print("Get today...")
+        //        print(Date())
+        //        let dd = getCurrentTimezoneDate()
+        //        print(dd)
+        //        print(calendar.startOfDay(for: dd))
+        //        print(calendar.startOfDay(for: Date()))
 
-        let dateFrom = calendar.startOfDay(for: getDateByTimezoneShangHai()) // eg. 2016-10-10 00:00:00
-        var dateTmp = calendar.date(byAdding: .hour, value: -16, to: dateFrom)
-        dateTmp = calendar.date(byAdding: .day, value: 1, to: dateTmp!)
-        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateTmp!)
-        print("Date from: \(dateTmp!.description) to: \(dateTo!.description)")
-        let predicate = NSPredicate(format: "timestamp >= %@ AND timestamp < %@", dateTmp! as NSDate, dateTo! as NSDate)
+        let dateFrom = calendar.startOfDay(for: getCurrentTimezoneDate()) // eg. 2016-10-10 00:00:00
+        let dateTmp = calendar.date(byAdding: .hour, value: 8, to: dateFrom)!
+        let dateTo = calendar.date(byAdding: .hour, value: 24, to: dateTmp)
+        print("Date from: \(dateTmp.description) to: \(dateTo!.description)")
+        let predicate = NSPredicate(format: "timestamp >= %@ AND timestamp < %@", dateTmp as NSDate, dateTo! as NSDate)
         req.predicate = predicate
         
         do {
@@ -51,10 +55,10 @@ class DashboardViewModel: ObservableObject {
     }
     
     // Add a record
-    func add(count: Int, timestamp: Date, type: String) {
+    func add(count: Int, type: String) {
         let obj = ExcersizeCD(context: controller.container.viewContext)
         obj.count = Int16(count)
-        obj.timestamp = timestamp
+        obj.timestamp = getCurrentTimezoneDate()
         obj.type = type
         // save
         controller.save()
@@ -92,12 +96,14 @@ class DashboardViewModel: ObservableObject {
         return total
     }
     
-    func getDateByTimezoneShangHai() -> Date {
+    // MARK: Get current timezone date
+    private func getCurrentTimezoneDate() -> Date {
         let d1 = Date()
         // let timeZone = TimeZone.current
         let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone.current
         let interval: Int = timeZone.secondsFromGMT(for: d1)
         let currentDate = d1.addingTimeInterval(Double(interval))
+        print("Current Timezone date: \(currentDate)")
         return currentDate
     }
     

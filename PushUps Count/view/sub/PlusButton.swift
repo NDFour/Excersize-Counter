@@ -29,21 +29,11 @@ struct PlusButton: View {
                 Button("+ \(plus)") {
                     print("+ \(plus)")
                     
-                    dashboardVM.add(count: plus, timestamp: getCurrentTimezoneDate(), type: excersizeTypeUtil.excersizes[excersizeSelected].code)
+                    dashboardVM.add(count: plus, type: excersizeTypeUtil.excersizes[excersizeSelected].code)
                     
                 }
             }
         }
-    }
-    
-    // MARK: Get current timezone date
-    private func getCurrentTimezoneDate() -> Date {
-        let d1 = Date()
-        // let timeZone = TimeZone.current
-        let timeZone = TimeZone(identifier: "Asia/Shanghai") ?? TimeZone.current
-        let interval: Int = timeZone.secondsFromGMT(for: d1)
-        let currentDate = d1.addingTimeInterval(Double(interval))
-        return currentDate
     }
     
 }

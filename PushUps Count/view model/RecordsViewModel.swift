@@ -110,7 +110,35 @@ class RecordsViewModel: ObservableObject {
         getAllRecords()
     }
     
+    /**
+     Export all records data to JSON
+     */
+    func exportToJsonString() -> String {
+        //        let encodedData = try JSONEncoder().encode(city)
+        //        let jsonString = String(data: encodedData,
+        //                                encoding: .utf8)
+        var excersizeVMs: [ExcersizeRecordViewModel] = []
+        for ex in totalRecords {
+            excersizeVMs.append(ExcersizeRecordViewModel(type: ex.type!, count: Int(ex.count), timestamp: ex.timestamp!))
+        }
+        
+        var jsonString = ""
+        do {
+            let encodedData = try JSONEncoder().encode(excersizeVMs)
+            jsonString = String(data: encodedData, encoding: .utf8) ?? ""
+        } catch {
+            print("Error occur when exportToJsonString: \(error)")
+        }
+        
+        return jsonString
+    }
+    
     
 }
 
+struct ExcersizeRecordViewModel: Codable {
+    var type: String
+    var count: Int
+    var timestamp: Date
+}
 

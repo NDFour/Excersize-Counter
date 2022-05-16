@@ -20,6 +20,9 @@ struct RecordsView: View {
     @State
     var showDelAlert = false
     
+    @State
+    var showJsonSheet = false
+    
     var body: some View {
         HStack {
             // MARK: Date range list
@@ -35,6 +38,18 @@ struct RecordsView: View {
                         .bold()
                         .padding(.horizontal)
                     Text("\(recordsVM.totalRecords.count) records")
+                    Button("Export") {
+                        print("Export all records...")
+                        showJsonSheet = true
+                    }
+                    .padding(.horizontal)
+                    .sheet(isPresented: $showJsonSheet, onDismiss: {
+                        print("exportToJson sheet is dismiss...")
+                    }, content: {
+                        ExportToJson(recordsVM: recordsVM, showJsonSheet: $showJsonSheet)
+                            .frame(width: 550, height: 400)
+                    })
+                    
                     Spacer()
                     
                     // Delete all confirm

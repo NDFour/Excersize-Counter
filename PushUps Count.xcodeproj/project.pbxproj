@@ -10,6 +10,7 @@
 		04147E9D28256050004B3496 /* ExcersizeTypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04147E9C28256050004B3496 /* ExcersizeTypeUtil.swift */; };
 		043DA3582825466C00CFBDD5 /* ExcersizeRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043DA3562825466C00CFBDD5 /* ExcersizeRecord.xcdatamodeld */; };
 		043DA35A282546EC00CFBDD5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DA359282546EC00CFBDD5 /* Persistence.swift */; };
+		04512E132832B4500080841B /* ExportToJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04512E122832B4500080841B /* ExportToJson.swift */; };
 		0469ABC628240FF60087D28F /* PushUps_CountApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469ABC528240FF60087D28F /* PushUps_CountApp.swift */; };
 		0469ABC828240FF60087D28F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469ABC728240FF60087D28F /* ContentView.swift */; };
 		0469ABCA28240FF70087D28F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469ABC928240FF70087D28F /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		04147E9C28256050004B3496 /* ExcersizeTypeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcersizeTypeUtil.swift; sourceTree = "<group>"; };
 		043DA3572825466C00CFBDD5 /* ExcersizeRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExcersizeRecord.xcdatamodel; sourceTree = "<group>"; };
 		043DA359282546EC00CFBDD5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		04512E122832B4500080841B /* ExportToJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportToJson.swift; sourceTree = "<group>"; };
 		0469ABC228240FF60087D28F /* PushUps Count.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PushUps Count.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0469ABC528240FF60087D28F /* PushUps_CountApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUps_CountApp.swift; sourceTree = "<group>"; };
 		0469ABC728240FF60087D28F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				04BE1D44282F9B8F005EA2EE /* DashboardViewRecordsList.swift */,
 				04BE1D4E282FC97D005EA2EE /* AnalyseSummaryCount.swift */,
 				04BE1D50282FCA6E005EA2EE /* AnalyseSummaryByType.swift */,
+				04512E122832B4500080841B /* ExportToJson.swift */,
 			);
 			path = sub;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				04BE1D47282FA1D0005EA2EE /* RecordsViewModel.swift in Sources */,
 				0469ABDB282411B60087D28F /* DashboardView.swift in Sources */,
 				04EA4C3C28257FE2008F2FE6 /* ExcersizeTypeTab.swift in Sources */,
+				04512E132832B4500080841B /* ExportToJson.swift in Sources */,
 				04EA4C3A28257ECC008F2FE6 /* RecordsViewRecordList.swift in Sources */,
 				0469ABC628240FF60087D28F /* PushUps_CountApp.swift in Sources */,
 				04BE1D43282F9880005EA2EE /* DashboardViewmodel.swift in Sources */,
