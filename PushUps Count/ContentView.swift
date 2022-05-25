@@ -34,6 +34,12 @@ struct ContentView: View {
                         Text("Records")
                     }
                     
+                    NavigationLink {
+                        ImportDataView()
+                    } label: {
+                        Text("Import")
+                    }
+                    
                 }
                 Text(getTodayDate())
                     .font(.subheadline)

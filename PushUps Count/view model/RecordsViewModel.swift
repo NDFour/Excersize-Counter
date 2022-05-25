@@ -20,6 +20,8 @@ class RecordsViewModel: ObservableObject {
     var totalRecords: [ExcersizeCD] = []
     @Published
     var recordsByDay: [RecordsOfDay] = []
+    @Published
+    var showList: [Bool] = [] // 是否折叠显示
     
     var controller: PersistentController = PersistentController.shared
     
@@ -71,8 +73,28 @@ class RecordsViewModel: ObservableObject {
         for kk in dateArr.reversed() {
             let tmp = RecordsOfDay(date: kk, records: recMap[kk] ?? [])
             recordsByDay.append(tmp)
+            // 默认折叠显示
+            showList.append(false)
         }
         
+    }
+    
+    /**
+     全部折叠 显示
+     */
+    func foldAll() {
+        for idx in 0 ..< showList.count {
+            showList[idx] = false
+        }
+    }
+    
+    /**
+     全部展开 显示
+     */
+    func unfoldAll() {
+        for idx in 0 ..< showList.count {
+            showList[idx] = true
+        }
     }
     
     /**

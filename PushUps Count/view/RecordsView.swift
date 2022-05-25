@@ -24,65 +24,68 @@ struct RecordsView: View {
     var showJsonSheet = false
     
     var body: some View {
-        HStack {
-            // MARK: Date range list
-//            DatePickerBar(exDays: [Date]())
-//                .padding()
-            // MARK: Date selector
-//            DatePicker("Date", selection: $selectedDate, in: ...Date(),  displayedComponents: .date)
-//                .datePickerStyle(.stepperField)
-            
-            VStack {
-                HStack {
-                    Text("Total:")
-                        .bold()
-                        .padding(.horizontal)
-                    Text("\(recordsVM.totalRecords.count) records")
-                    Button("Export") {
-                        print("Export all records...")
-                        showJsonSheet = true
-                    }
+        
+        VStack {
+            HStack {
+                Text("Total:")
+                    .bold()
                     .padding(.horizontal)
-                    .sheet(isPresented: $showJsonSheet, onDismiss: {
-                        print("exportToJson sheet is dismiss...")
-                    }, content: {
-                        ExportToJson(recordsVM: recordsVM, showJsonSheet: $showJsonSheet)
-                            .frame(width: 550, height: 400)
-                    })
-                    
-                    Spacer()
-                    
-                    // Delete all confirm
-                    if showDelAlert {
-                        Button("Confirm") {
-                            withAnimation {
-                                showDelAlert.toggle()
-                                print("confirm delete all !")
-                                recordsVM.deleteall()
-                            }
-                        }
-                        .foregroundColor(.red)
-                        
-                        Button("Cancel") {
-                            withAnimation {
-                                showDelAlert.toggle()
-                            }
+                Text("\(recordsVM.totalRecords.count) records")
+                Button("Export") {
+                    print("Export all records...")
+                    showJsonSheet = true
+                }
+                .padding(.horizontal)
+                .sheet(isPresented: $showJsonSheet, onDismiss: {
+                    print("exportToJson sheet is dismiss...")
+                }, content: {
+                    ExportToJson(recordsVM: recordsVM, showJsonSheet: $showJsonSheet)
+                        .frame(width: 550, height: 400)
+                })
+                
+                Spacer()
+                
+                // Delete all confirm
+                if showDelAlert {
+                    Button("Confirm") {
+                        withAnimation {
+                            showDelAlert.toggle()
+                            print("confirm delete all !")
+                            recordsVM.deleteall()
                         }
                     }
+                    .foregroundColor(.red)
                     
-                    Button("Detele all") {
-                        print("delete all")
+                    Button("Cancel") {
                         withAnimation {
                             showDelAlert.toggle()
                         }
                     }
-                    .padding(.horizontal)
                 }
-                .padding(.vertical, 8)
-                // MARK: Total records list
-                RecordsViewRecordList(recordsVM: recordsVM, excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
+                
+                Button("Detele all") {
+                    print("delete all")
+                    withAnimation {
+                        showDelAlert.toggle()
+                    }
+                }
+                .padding(.horizontal)
             }
+            .padding(.vertical, 8)
+            // MARK: Total records list
+            HStack {
+                Spacer()
+                Button("Fold All") {
+                    recordsVM.foldAll()
+                }
+                Button("Unold All") {
+                    recordsVM.unfoldAll()
+                }
+            }
+            .padding(.horizontal)
+            RecordsViewRecordList(recordsVM: recordsVM, excersizeTypeUtil: excersizeTypeUtil, formatClosure: formatTimestamp)
         }
+        
     }
     
     // MARK: Excersize Records date formater
