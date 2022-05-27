@@ -37,8 +37,12 @@ class ImportDataViewmodel: ObservableObject {
                 obj.type = self.type
                 print("默认导入数据为 俯卧撑: \(obj)")
                 // MARK: save
-                controller.save()
-                succCount += 1
+                if checkIfInputDateAfterNow(inputDate: obj.timestamp ?? Date()) {
+                    
+                } else {
+                    controller.save()
+                    succCount += 1
+                }
             }
         }
         // MARK: clean jsonStr
@@ -54,4 +58,58 @@ class ImportDataViewmodel: ObservableObject {
         return dd ?? Date()
     }
     
+    /**
+        * Import json data and converto to array of Record
+        */
+    func importJsonDataAndStore() {
+        let data = jsonStr.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        do {
+            var parseRecords: [JsonRecord] = []
+            try parseRecords = decoder.decode([JsonRecord].self, from: data)
+            print("Parse json succ: \(parseRecords.count)")
+            var succCnt = 0
+            for parse in parseRecords {
+                // MARK: Create new core data obj
+                let obj = ExcersizeCD(context: controller.container.viewContext)
+                obj.count = Int16(parse.count)
+                obj.timestamp = parse.timestamp
+                obj.type = parse.type
+                // MARK: save
+                if checkIfImportRecordsValid(raw: parse) {
+                    controller.save()
+                    succCnt += 1
+                }
+            }
+            print("succCnt: \(succCnt)")
+            jsonStr = "Import from json: parsed - \(parseRecords.count), succ - \(succCnt)"
+        } catch {
+            print("Encounted err when importJsonDataAndStore: \(error)")
+        }
+    }
+    
+    /**
+    检查导入的数据是否合法
+     */
+    func checkIfImportRecordsValid(raw: JsonRecord) -> Bool {
+        if checkIfInputDateAfterNow(inputDate: raw.timestamp) {
+            return false
+        }
+        return true
+    }
+    
+    func checkIfInputDateAfterNow(inputDate: Date) -> Bool {
+        let now = Date()
+        return inputDate > now
+    }
+    
+}
+
+/**
+ 用于表示从 json 字符串解析到的数据
+ */
+struct JsonRecord: Decodable {
+    var type: StringLiteralType
+    var count: Int
+    var timestamp: Date
 }

@@ -41,7 +41,8 @@ class DashboardViewModel: ObservableObject {
         //        print(calendar.startOfDay(for: Date()))
 
         let dateFrom = calendar.startOfDay(for: getCurrentTimezoneDate()) // eg. 2016-10-10 00:00:00
-        let dateTmp = calendar.date(byAdding: .hour, value: 8, to: dateFrom)!
+//        let dateTmp = calendar.date(byAdding: .hour, value: 8, to: dateFrom)!
+        let dateTmp = dateFrom
         let dateTo = calendar.date(byAdding: .hour, value: 24, to: dateTmp)
         print("Date from: \(dateTmp.description) to: \(dateTo!.description)")
         let predicate = NSPredicate(format: "timestamp >= %@ AND timestamp < %@", dateTmp as NSDate, dateTo! as NSDate)
